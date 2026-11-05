@@ -6,7 +6,7 @@
 /*   By: abdait-o <abdait-o@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:18:43 by abdait-o          #+#    #+#             */
-/*   Updated: 2026/11/04 17:05:33 by abdait-o         ###   ########.fr       */
+/*   Updated: 2026/11/05 12:41:11 by abdait-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	print_hexa_in_low(unsigned int nb)
 	end = i + 1;
 	while (i >= 0)
 	{
-		print_char(res[i]);
+		if (print_char(res[i]) == -1)
+			return (-1);
 		i--;
 	}
 	return (end);

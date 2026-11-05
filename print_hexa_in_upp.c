@@ -6,7 +6,7 @@
 /*   By: abdait-o <abdait-o@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:18:32 by abdait-o          #+#    #+#             */
-/*   Updated: 2026/11/04 16:55:35 by abdait-o         ###   ########.fr       */
+/*   Updated: 2026/11/05 12:40:51 by abdait-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_hexa_in_upp(unsigned int nb)
 {
-	char	res[100];
+	char	res[20];
 	int		i;
 	int		end;
 	char	*hexa;
@@ -31,7 +31,8 @@ int	print_hexa_in_upp(unsigned int nb)
 	end = i + 1;
 	while (i >= 0)
 	{
-		print_char(res[i]);
+		if (print_char(res[i]) == -1)
+			return (-1);
 		i--;
 	}
 	return (end);

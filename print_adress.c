@@ -6,19 +6,24 @@
 /*   By: abdait-o <abdait-o@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:19:18 by abdait-o          #+#    #+#             */
-/*   Updated: 2026/11/04 17:06:11 by abdait-o         ###   ########.fr       */
+/*   Updated: 2026/11/05 13:03:39 by abdait-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_hexa(char *res, int i)
+static int	print_hexa(char *res, int i)
 {
+	int	end;
+
+	end = i;
 	while (i >= 0)
 	{
-		print_char(res[i]);
+		if (print_char(res[i]) == -1)
+			return (-1);
 		i--;
 	}
+	return (end);
 }
 
 int	print_adress(void *content)
@@ -27,14 +32,13 @@ int	print_adress(void *content)
 	unsigned long	p;
 	char			res[100];
 	int				i;
+	int				end;
 
 	hexa = "0123456789abcdef";
 	if (!content)
-	{
-		write(1, "(nil)", 5);
-		return (5);
-	}
-	write(1, "0x", 2);
+		return (write(1, "(nil)", 5));
+	if (write(1, "0x", 2) == -1)
+		return (-1);
 	p = (unsigned long)content;
 	i = 0;
 	while (p >= 16)
@@ -44,6 +48,8 @@ int	print_adress(void *content)
 		i++;
 	}
 	res[i] = hexa[p % 16];
-	print_hexa(res, i);
-	return (i + 3);
+	end = print_hexa(res, i);
+	if (end != -1)
+		return (end + 3);
+	return (-1);
 }

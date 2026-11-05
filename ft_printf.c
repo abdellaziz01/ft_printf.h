@@ -6,7 +6,7 @@
 /*   By: abdait-o <abdait-o@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:19:23 by abdait-o          #+#    #+#             */
-/*   Updated: 2026/11/04 16:27:19 by abdait-o         ###   ########.fr       */
+/*   Updated: 2026/11/05 13:18:05 by abdait-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,40 @@ int	return_value(char c, va_list *ptr)
 	return (0);
 }
 
-int	ft_printf(const char *format, ...)
+int	real_res(const char *format, va_list *ptr)
 {
-	int		t;
-	int		i;
-	va_list	ptr;
+	int	t;
+	int	i;
+	int	lenght;
 
 	t = 0;
-	if (!format)
-		return (-1);
-	va_start(ptr, format);
 	i = 0;
 	while (format[i])
 	{
 		if (format[i] == '%' && format[i + 1])
 		{
-			t = t + return_value(format[i + 1], &ptr);
+			lenght = return_value(format[i + 1], ptr);
 			i++;
 		}
 		else if (format[i] != '%')
-			t = t + print_char(format[i]);
+			lenght = print_char(format[i]);
+		if (lenght == -1)
+			return (-1);
+		t = t + lenght;
 		i++;
 	}
-	va_end(ptr);
 	return (t);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	int		res;
+	va_list	ptr;
+
+	if (!format)
+		return (-1);
+	va_start(ptr, format);
+	res = real_res(format, &ptr);
+	va_end(ptr);
+	return (res);
 }

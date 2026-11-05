@@ -6,7 +6,7 @@
 /*   By: abdait-o <abdait-o@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:18:02 by abdait-o          #+#    #+#             */
-/*   Updated: 2026/11/04 16:37:30 by abdait-o         ###   ########.fr       */
+/*   Updated: 2026/11/05 12:40:24 by abdait-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_unsi_numb(unsigned int nb)
 {
-	char	arr[100];
+	char	arr[20];
 	int		i;
 	int		end;
 
@@ -29,7 +29,8 @@ int	print_unsi_numb(unsigned int nb)
 	end = i + 1;
 	while (i >= 0)
 	{
-		print_char(arr[i]);
+		if (print_char(arr[i]) == -1)
+			return (-1);
 		i--;
 	}
 	return (end);

@@ -6,46 +6,57 @@
 /*   By: abdait-o <abdait-o@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:19:15 by abdait-o          #+#    #+#             */
-/*   Updated: 2026/11/04 17:07:33 by abdait-o         ###   ########.fr       */
+/*   Updated: 2026/11/05 13:17:02 by abdait-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_numbers(char *arr, int i, int start)
+static int	print_numbers(char *arr, int i)
 {
+	int	end;
+	int	start;
+
+	start = 0;
+	if (arr[0] == '-')
+	{
+		if (print_char(arr[0]) == -1)
+			return (-1);
+		start = 1;
+	}
+	end = i;
 	while (i >= start)
 	{
-		print_char(arr[i]);
+		if (print_char(arr[i]) == -1)
+			return (-1);
 		i--;
 	}
+	return (end);
 }
 
 int	print_base10(int nb)
 {
 	char	arr[100];
 	int		i;
-	int		start;
+	int		end;
 
 	i = 0;
 	if (nb == -2147483648)
-	{
-		write(1, "-2147483648", 11);
-		return (11);
-	}
+		return (write(1, "-2147483648", 11));
 	if (nb < 0)
 	{
-		print_char('-');
+		arr[0] = '-';
 		nb = -nb;
-		i = 1;
+		i++;
 	}
-	start = i;
 	while (nb > 9)
 	{
 		arr[i++] = nb % 10 + 48;
 		nb = nb / 10;
 	}
 	arr[i] = nb % 10 + 48;
-	print_numbers(arr, i, start);
-	return (i + 1);
+	end = print_numbers(arr, i);
+	if (end != -1)
+		return (end + 1);
+	return (-1);
 }
